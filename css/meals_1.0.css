@@ -1,0 +1,22 @@
+div.title{
+    font-size: 26px;
+    margin: 30px 30px 0 50px;
+    border-radius: 13px;
+    padding-left: 10px;
+}
+
+table.meal_table{
+    padding: 2% 5% 5%;
+    width: 100%;
+}
+
+td.meal_table{
+    padding-top: 50px;
+}
+
+div.cat_height{
+    left: 1%;
+    width: 4px;
+    border-radius: 2px;
+    position: absolute;
+}

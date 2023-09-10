@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" sizes="16x16" href="media/logo.png">
+    <title>supply the taste</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+    <script src="javascript/header_1.14.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase.js"></script>
+    <script src="javascript/firebase_1.2.js"></script>
+    <script src="javascript/index_botm_1.0.js"></script>
+    <script src="javascript/index_1.19.js"></script>
+    <link rel="stylesheet" href="css/header_1.0.css">
+    <link rel="stylesheet" href="css/index_1.0.css">
+    <link rel="stylesheet" href="css/index_botm_1.0.css">
+    <style>
+      img.front_page{
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 50%;
+        min-width: 300px;
+        max-width: 90%;
+        max-height: 50%;
+        object-fit: contain;
+      }
+      div.what_do_we_do{
+        position: absolute;
+        height: 100%;
+        top: 0;
+        width: 23%;
+        left: 0;
+        padding: 30px;
+        font-size: 3vh;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+      }
+      img.what_do_we_do{
+        position: absolute;
+        left: 25%;
+        width: 50%;
+        height: 100%;
+        object-fit: contain;
+      }
+      a.click_me{
+        padding: 15px 7px;
+        background-color: #0090ff;
+        text-align: center;
+        width: 150px;
+        margin: 50px;
+        color: white;
+        border-radius: 5px;
+        right: 0;
+        left: unset;
+        position: absolute;
+        transform: translateY(-80px);
+        text-decoration: none;
+      }
+      a.click_me:Hover{
+        background-color: #0064b5;
+      }
+      img.tick{
+        width: 30px;
+      }
+      th{
+        font-weight: 900;
+        font-size: 50px
+      }
+      section.horizontal{
+        width: 50%;
+        height: 100%;
+        float: left;
+        position: relative;
+      }
+      table.front_page{
+        position: absolute;
+        margin: 10%;
+        top: 0%;
+        width: 80%;
+        height: 60%;
+        font-family: sans-serif;
+        min-height: 350px;
+      }
+      a.front_page{
+        color: white;
+        background: #039be5;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 20px;
+        text-decoration: none;
+      }
+      a.front_page:Hover{
+        background: #0386c6;
+      }
+      td.front_info{
+        font-weight: 300;
+        font-size: 2vh;
+      }
+      img.front_page{
+        width: 90%;
+        height: 80%;
+        object-fit: contain;
+        min-height: 90%;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      div.front_explain{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin: 30px;
+        width: calc(100% - 60px);
+        text-align: right;
+        font-family: sans-serif;
+        font-weight: 300;
+      }
+      a.front_explain{
+        text-decoration: none;
+        color: black;
+      }
+      a.front_explain:Hover{
+        color: #039be5;
+      }
+    </style>
+  </head>
+  <body id="body" onload="initHeader(); initIndex()" style="opacity: 0;">
+    <div id="header" class="header"> <a class="logo" id="logo" href="/index.html">supply the taste</a></div>
+    <div id="main" class="main" style="-ms-overflow-style: scrollbar">
+
+      <section class="banner" id="0" style="background-image: url('media/background_test.png')">
+        <section class="horizontal" id="front_left">
+          <table class="front_page" id="front_table">
+            <tr><td style="font-size: 10vh; color: white; text-shadow: 2px 2px rgba(8,45,74,0.4); -webkit-text-stroke: 1px rgba(8,45,74,0.8);" id="front_logo">supply<br>the taste</td></tr>
+            <tr><td class="front_info" id="front_info">we provide pre made meal kits for you to make at home, saving you the time when it comes to dinner.<br>
+              <br>sourcing only the freshest ingredients, we work our magic in our kitchen so you don't have to - and we ship the final
+              product out in environmentally friendly and bio-degradable packaging.
+            </td></tr>
+            <tr><td>
+              <a class="front_page" href="/choose.html">see meals</a>
+              <a style="margin-left: 40px" class="front_page" href="register.html" id="front_register">register</a>
+            </td></tr>
+          </table>
+        </section>
+
+        <section class="horizontal" id="front_right">
+          <img class="front_page" id="front_image" src="media/background_test_2.png">
+          <div class="front_explain">Deliveries are available 4 days after order on Tuesdays and Fridays.</div>
+        </section>
+      </section>
+
+      <section class="banner" id="2" style="background-image: url('media/pattern.jpg')">
+        <section class="banner" id="first" >
+          <section class="inside" id="box left">
+            <div class="deal_of_month" id="container">
+              <img class="deal_of_month" id="monthly pic">
+              <table class="deal_of_month" id="table">
+                <tr><td id="line 1"></td></tr>
+                <tr><td id="line 2"></td></tr>
+                <tr><td id="line 3"></td></tr>
+                <tr><td id="line 4"></td></tr>
+              </table>
+              <div class="cover" style="background-color: rgba(0, 0, 0, 0.25); z-index: 10;"></div>
+              <h1 class="deal_of_month" id="title"></h1>
+            </div>
+          </section>
+
+        <section class="inside" id="box right" style="background-image: linear-gradient(70deg,#ffffff,#f6f5f5)">
+          <div class="month_title" id="a" style="top: 20%">£15 per person<br>with a tasty vegetarian<br>option available</div>
+          <!--          <a class="box" href="/register.html?purchase=month_box" id="purchase">add to basket</a>-->
+          <a class="box" id="purchase">add to basket</a>
+        </section>
+
+      </section>
+      </section>
+      <section class="banner" id="3" style="background-color: #cde5e5">
+        <div class="title" id="about us">about us</div>
+        <div class="about_us" id="about us text">"A passion for food, 3 lads and 3 lockdowns has led us to this place. To supply the taste. We want to combine our 20+ years of kitchen experience to make cooking at home easier for you!"<br><br>supplier of the taste</div>
+        <div class="freebie" id="freebie">more chance of a freebie if<br>you slide in the dm's..</div>
+      </section>
+
+      <!-- section used for contact details,  -->
+<!--      <section class="banner" id="4" style="background-color: #dae9e9; height: 200px">-->
+<!--      </section>-->
+
+    </div>
+  </body>
+
+  <script>
+    if (isMobile()){
+      let section = document.getElementById('0');
+      let left = document.getElementById('front_left');
+      let right = document.getElementById('front_right');
+      section.style.height = '160%';
+      left.style.width = '100%';
+      right.style.width = '100%';
+      left.style.height = '50%';
+      right.style.height = '50%';
+      document.getElementById('front_table').style.minHeight = '450px';
+      document.getElementById('front_image').style.left = '5%';
+      let logo = document.getElementById('front_logo');
+      document.getElementById('front_info').innerHTML = 'we provide pre made meal kits for you to make at home, saving you the time when it comes to dinner.<br><br>' +
+              'sourcing only the freshest ingredients, we work our magic in our kitchen so you don\'t have to - and we ship the final ' +
+              'product out in environmentally friendly and bio-degradable packaging.';
+      logo.style.fontSize = '16vw';
+      document.getElementById('main').removeChild(document.getElementById('2'));
+    }
+  </script>
+</html>

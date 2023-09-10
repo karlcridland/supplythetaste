@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" sizes="16x16" href="media/logo.png">
+    <title>supply the terms</title>
+    <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase.js"></script>
+    <script src="javascript/firebase_1.2.js"></script>
+    <script src="javascript/header_1.14.js"></script>
+    <link rel="stylesheet" href="css/header_1.0.css">
+    <style>
+        div.main{
+            font-family: sans-serif;
+        }
+        ul{
+            margin-top: 5px;
+        }
+        div.title{
+            position: relative;
+            width: calc(90% - 100px);
+            left: 5%;
+            background-color: white;
+            padding: 50px 50px;
+            font-size: 33px;
+            text-align: right;
+            font-weight: 900;
+        }
+        div.subtitle{
+            position: relative;
+            width: calc(90% - 100px);
+            left: 5%;
+            background-color: white;
+            padding: 50px 50px;
+            font-size: 30px;
+            text-align: right;
+            font-weight: 500;
+        }
+        div.content{
+            position: relative;
+            width: calc(70% - 60px);
+            background-color: white;
+            padding: 20px 30px;
+            font-size: 18px;
+            margin-left: 15%;
+            margin-right: 15%;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body id="body" onload="initHeader()" style="opacity: 0;">
+<div id="header" class="header"> <a class="logo" id="logo" href="/index.html">supply the taste</a></div>
+<div id="main" class="main">
+
+</div>
+</body>
+<script>
+    let i = 0;
+    ref.child('terms').once('value',snapshot=>{
+        snapshot.forEach(function (section){
+            let title = document.createElement('div');
+            title.innerHTML = section.child('title').val();
+            let content = document.createElement('div');
+            content.setAttribute('class','content');
+            content.innerHTML = section.child('body').val();
+            [title,content].forEach(function (a){
+                document.getElementById('main').appendChild(a);
+            })
+            if (i++ === 0){
+                title.setAttribute('class','title');
+            }
+            else{
+                title.setAttribute('class','subtitle');
+            }
+
+            if (isMobile()){
+                title.style.left = 'unset';
+                title.style.width = 'calc(100% - 20px)';
+                title.style.margin = 'unset';
+                title.style.padding = '10px';
+                title.style.fontSize = '24px';
+                title.style.fontWeight = '900';
+
+                content.style.left = '10px';
+                content.style.width = 'calc(100% - 20px)';
+                content.style.margin = 'unset';
+                content.style.padding = 'unset';
+            }
+        })
+    })
+</script>
+</html>

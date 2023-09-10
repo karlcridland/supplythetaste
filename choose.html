@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>supply the basket</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="media/logo.png">
+    <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase.js"></script>
+    <script src="javascript/firebase_1.2.js"></script>
+    <script src="javascript/header_1.14.js"></script>
+    <link rel="stylesheet" href="css/header_1.0.css">
+    <link rel="stylesheet" href="css/choose_1.0.css">
+</head>
+<body id="body" onresize="resize_screen()" style="opacity: 0;">
+<div id="header" class="header"> <a class="logo" id="logo" href="/index.html">supply the taste</a></div>
+<div id="main" class="main">
+    <div class="filter" id="filter"><input id="search" placeholder="search" class="filter"></div>
+    <div class="result" id="result"><div class="loading" id="loading">loading...</div></div>
+    <div class="basket" id="basket">
+        <div class="items" id="items"></div>
+        <div class="total" id="total">
+            <div class="total_text" id="total_text">Total: £0.00</div>
+            <div class="checkout" id="checkout" onclick="if (basket.total() > 0){ window.location.href = '/checkout' }">checkout</div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+
+    let back_button = document.createElement('div');
+    let start_with;
+    let cover = document.createElement('div');
+    let month = get_month();
+    let resize = function (expand,option){
+        try{
+            let scale = 1.0
+            if (expand){
+                scale = 1.1
+            }
+            option.animate([
+                {transform: 'scale('+scale+','+scale+')'}
+            ],{
+                duration: 200,
+                iterations: 1
+            })
+            window.setTimeout(function (){
+                option.style.transform = 'scale('+scale+','+scale+')'
+            },150)
+        }catch (e) {
+
+        }
+    }
+
+    const category_color = {
+        'starter':'#ff5b00',
+        'main': '#0595e3',
+        'dessert': '#000000',
+        'side': '#397900',
+        'misc': '#fffb00'
+    };
+
+    function on_load_page(){
+        load(1);
+        initHeader();
+        if (isMobile()){
+
+            let f = document.getElementById('filter');
+            f.style.left = '0';
+            f.style.width = '100%';
+            f.style.borderLeft = 'unset';
+
+            document.getElementById('result').style.left = '0';
+            document.getElementById('result').style.width = 'calc(100% - 40px)';
+            document.getElementById('result').style.padding = '10px';
+            document.getElementById('result').style.width = 'calc(100% - 20px)';
+            document.getElementById('result').style.height = 'calc(100% - 20px)';
+            document.getElementById('basket').style.width = 'calc(100%)';
+
+            let expanded = true
+            back_button.setAttribute('class','checkout');
+            back_button.style.position = 'fixed';
+            back_button.style.zIndex = '100';
+            back_button.style.right = 'unset';
+            back_button.style.left = '20px';
+            document.getElementById('main').appendChild(back_button);
+            back_button.onclick = function (){
+                expanded = !expanded;
+                let x = -document.getElementById('basket').offsetWidth;
+                back_button.textContent = 'basket';
+                if (expanded){
+                    back_button.textContent = 'close';
+                    x = 0;
+                }
+                document.getElementById('basket').style.left = x+'px';
+            }
+            back_button.click();
+        }
+        if (performance.navigation.type !== performance.navigation.TYPE_RELOAD) {
+            const urlParams = new URLSearchParams(window.location.search);
+            start_with = urlParams.get('basket');
+        }
+        update_basket();
+        resize_screen();
+        ref.child('specials/name/'+month).once('value',n=>{
+            let name = n.val()
+            ref.child('specials/mains/'+month+'/1').once('value',m=>{
+                ref.child('specials/mains/'+month+'/2').once('value',mv=>{
+                    ref.child('specials/starter/'+month+'/1').once('value',s=>{
+                        ref.child('specials/starter/'+month+'/2').once('value',sv=>{
+                            ref.child('specials/dessert/'+month+'/1').once('value',d=>{
+                                ref.child('specials/dessert/'+month+'/2').once('value',dv=>{
+                                    ref.child('specials/extra/'+month).once('value',e=>{
+                                        let reg_desc =
+                                            '<span class="menu_type">starter:</span> '+s.val()+'<br>' +
+                                            '<span class="menu_type">main:</span> '+m.val()+'<br>' +
+                                            '<span class="menu_type">dessert:</span> '+d.val();
+                                        let reg = new Meal(name,reg_desc,null,'special');
+                                        reg.price = 3000;
+                                        menus.push(reg);
+                                        if (start_with === 'box_of_the_month_reg'){
+                                            if (!basket.contains(reg.name)) {
+                                                basket.append(new BasketItem(reg.name, 1, null, reg.price));
+                                            }
+                                        }
+                                        let veg_desc;
+                                        if (dv.val()){
+                                            veg_desc =
+                                                '<span class="menu_type">starter:</span> '+sv.val()+',<br>' +
+                                                '<span class="menu_type">main:</span> '+mv.val()+',<br>' +
+                                                '<span class="menu_type">dessert:</span> '+dv.val();
+                                        }
+                                        else{
+                                            veg_desc =
+                                                '<span class="menu_type">starter:</span> '+sv.val()+',<br>' +
+                                                '<span class="menu_type">main:</span> '+mv.val()+',<br>' +
+                                                '<span class="menu_type">dessert:</span> '+d.val();
+                                        }
+                                        let veg = new Meal(name+' - vegetarian',veg_desc,null,'special');
+                                        veg.price = 3000;
+                                        menus.push(veg);
+                                        if (start_with === 'box_of_the_month_veg'){
+                                            if (!basket.contains(veg.name)){
+                                                basket.append(new BasketItem(veg.name,1,null,veg.price));
+                                            }
+                                        }
+
+                                        let mix = new Meal(name+' - mixture','one regular option plus one vegetarian option for the box of the month',null,'special');
+                                        mix.price = 3000;
+                                        menus.push(mix);
+
+                                        menu_download();
+                                    })
+                                })
+                            })
+                        })
+                    })
+                })
+            })
+        })
+        set_up_filters();
+        cover.setAttribute('class','cover');
+    }
+
+    function load(i){
+        try{
+            if (i > 3){
+                i = 1
+            }
+            let text = 'loading';
+            for (let d = 0; d < i; d++){
+                text += '.';
+            }
+            document.getElementById('loading').textContent = text;
+            window.setTimeout(function (){
+                load(i+1);
+            },500)
+        }
+        catch (e) {
+
+        }
+    }
+
+    function resize_screen(){
+        if (!isMobile()){
+            let w = 210+(window.innerWidth-250)%300;
+            let b = document.getElementById('basket');
+            let r = document.getElementById('result');
+            let f = document.getElementById('filter');
+            b.animate([
+                {width: w+'px'}
+            ],{
+                duration: 40,
+                iterations: 1
+            })
+            r.animate([
+                {
+                    width: 'calc(100% - '+w+'px)',
+                    left: w+'px'
+                }
+            ],{
+                duration: 40,
+                iterations: 1
+            })
+            f.animate([
+                {
+                    width: 'calc(100% - '+w+'px)',
+                    left: w+'px'
+                }
+            ],{
+                duration: 40,
+                iterations: 1
+            })
+            window.setTimeout(function (){
+                b.style.width = w+'px';
+                r.style.left = w+'px';
+                r.style.width = 'calc(100% - '+(w+40)+'px)';
+                f.style.left = w+'px';
+                f.style.width = 'calc(100% - '+(w+40)+'px)';
+            },30)
+        }
+    }
+
+    function update_basket(){
+        let b = document.getElementById('items');
+        b.innerHTML = '';
+        if (basket.items.length === 0){
+            let display = document.createElement('div');
+            display.setAttribute('class','basket_display');
+            display.innerHTML = 'supply the item you want to add to your basket!';
+            display.style.boxShadow = 'unset';
+            b.append(display);
+            document.getElementById('total_text').textContent = 'Total: '+basket.total().toString().price();
+            sessionStorage.setItem("basket", JSON.stringify(basket));
+            return;
+        }
+        basket.items.forEach(function (item){
+            let display = document.createElement('div');
+            display.setAttribute('class','basket_display');
+            display.innerHTML = item.name.toLowerCase()+'<br><br>quantity: '+item.quantity+'<br><br>'+item.price.toString().price();
+            b.append(display);
+            let delete_button = document.createElement('div');
+            delete_button.setAttribute('class','cancel');
+            delete_button.innerText = 'delete';
+            delete_button.style.right = '10px';
+            delete_button.style.margin = 'unset';
+            display.appendChild(delete_button);
+
+            delete_button.onclick = function (){
+                basket.remove(item.name);
+                update_basket();
+            }
+
+            let wrapper = document.createElement('div');
+            wrapper.setAttribute('class','edit_item');
+            display.appendChild(wrapper);
+
+            let edit_button = document.createElement('img');
+            edit_button.src = "media/edit_item.png";
+            edit_button.setAttribute('class','edit_item');
+            edit_button.innerText = 'delete';
+            edit_button.style.right = '10px';
+            edit_button.style.margin = 'unset';
+            wrapper.appendChild(edit_button);
+
+            edit_button.onclick = function (){
+                update_item_to_basket(item,null);
+            }
+
+            edit_button.onmouseenter = function (){
+                edit_button.src = "media/edit_item_blue.png";
+            }
+
+            edit_button.onmouseleave = function (){
+                edit_button.src = "media/edit_item.png";
+            }
+
+        })
+
+        document.getElementById('total_text').textContent = 'Total: '+basket.total().toString().price();
+        sessionStorage.setItem("basket", JSON.stringify(basket));
+    }
+
+    function menu_download(){
+        downloadMenus(function (){
+            display_menus([],[]);
+        },true)
+    }
+
+    function set_up_filters(){
+        let filters = document.getElementById('filters');
+
+        let search = document.getElementById('search');
+        search.onkeyup = function (){
+            display_menus()
+        }
+
+    }
+
+    function display_menus(){
+
+        let search = document.getElementById('search').value;
+
+        document.getElementById('result').innerHTML = '';
+        menus.forEach(function (menu){
+            if (search.length === 0 || menu.result(search)){
+                let option = document.createElement('div');
+                option.setAttribute('class','option');
+                option.textContent = menu.name;
+                document.getElementById('result').appendChild(option);
+
+                if (isMobile()){
+                    option.style.width = 'calc(50% - 60px)';
+                    option.style.margin = '10px';
+                    option.style.padding = '20px';
+                }
+
+                let type = document.createElement('div');
+                type.setAttribute('class','option_type');
+                type.style.backgroundColor = category_color[menu.category];
+                option.appendChild(type)
+
+                let select = document.createElement('div');
+                select.textContent = 'select';
+                select.setAttribute('class','checkout')
+                option.appendChild(select)
+                select.style.opacity = '0';
+                select.style.backgroundColor = '#80c17b'
+                select.style.margin = '10px 20px'
+                select.style.transform = 'scale(0.9,0.9)';
+                resize(false,option);
+                let boxShadow = option.style.boxShadow;
+
+                option.onmouseenter = function (){
+                    resize(true,option)
+                    select.style.opacity = '1';
+                    option.style.boxShadow = '0 0 10px 10px rgba(3, 155, 229,0.05)';
+                }
+
+                option.onmouseleave = function (){
+                    resize(false,option)
+                    select.style.opacity = '0';
+                    option.style.boxShadow = boxShadow;
+                }
+
+                option.onclick = function () {
+                    update_item_to_basket(menu,select,option);
+                }
+            }
+        })
+        update_basket();
+    }
+
+    function update_item_to_basket(menu,select,option){
+        if (!menu.price){
+            menu.price = 1100
+            if (menu.category === 'dessert'){
+                menu.price = 500
+            }
+        }
+        if (!menu.quantity){
+            menu.quantity = 1;
+        }
+        resize(false,option)
+        try{
+            select.style.opacity = '0';
+        }
+        catch (e) {
+
+        }
+        cover.innerHTML = '';
+        document.getElementById('result').appendChild(cover);
+
+        let display = document.createElement('div');
+        display.setAttribute('class','menu_display');
+        cover.appendChild(display);
+        cover.style.top = document.getElementById('result').scrollTop+'px';
+
+        display.style.transform = 'translateY(30px)';
+        display.style.opacity = '0';
+        cover.style.opacity = '0';
+
+        function show_display(show){
+            let y = '20px';
+            let o = '0'
+            if (show){
+                y = 0;
+                o = 1;
+                document.getElementById('result').style.overflow = 'hidden';
+            }
+            else{
+                document.getElementById('result').style.overflow = 'scroll';
+            }
+            display.animate([
+                {transform: 'translateY('+y+')', opacity: o}
+            ],{
+                duration: 200,
+                iterations: 1
+            })
+            cover.animate([
+                {opacity: o}
+            ],{
+                duration: 200,
+                iterations: 1
+            })
+            window.setTimeout(function (){
+                display.style.transform = 'translateY('+y+')';
+                display.style.opacity = o;
+                cover.style.opacity = o;
+                if (!show){
+                    document.getElementById('result').removeChild(cover);
+                }
+            },150)
+        }
+
+        show_display(true);
+
+        let image = document.createElement('img');
+        image.setAttribute('class','display_image');
+        if (menu.category === 'special'){
+            image.src = 'media/mystery_box.png';
+        }
+        else{
+            image.src = 'media/meals/'+menu.name.replaceAll(' ','').toLowerCase()+'.png';
+        }
+        display.appendChild(image);
+        image.style.maxHeight = image.offsetWidth+'px';
+
+        image.onerror = function (){
+            image.src = 'media/image_not_found.png'
+        }
+
+        let head_count = document.createElement('div');
+        head_count.setAttribute('class','head_count');
+        display.appendChild(head_count);
+
+        if (isMobile()){
+            head_count.style.transform = 'translateX(-20px)'
+        }
+
+        let people = document.createElement('img');
+        people.setAttribute('class','head_count');
+        people.src = 'media/people.png';
+
+        if (!menu.head_count){
+            head_count.textContent = 'serves two';
+        }
+        else{
+            head_count.textContent = 'serves '+menu.head_count;
+            if (menu.head_count === 'one'){
+                people.src = 'media/person.png';
+            }
+        }
+        head_count.appendChild(people);
+
+        let title = document.createElement('div');
+        title.setAttribute('class','display_title');
+        title.textContent = menu.name;
+        display.appendChild(title);
+
+        let text = menu.name;
+        let description = menu.description;
+        if (description === undefined){
+            console.log(menus)
+            menus.forEach(function (m){
+                if (m.name === menu.name){
+                    description = m.description;
+                    if (m.category === 'special'){
+                        image.src = 'media/mystery_box.png';
+                    }
+                }
+            })
+        }
+        text += '<br><br><span style="font-weight: 300">'+description+'<br></span>' +
+            '<br><span style="font-weight: 600">'+menu.price.toString().price()+'</span>';
+        title.innerHTML = text;
+
+        let subtitle = document.createElement('div');
+        subtitle.setAttribute('class','display_subtitle');
+        // display.appendChild(subtitle);
+
+        if (isMobile()){
+            display.style.height = window.innerHeight-80+'px';
+            display.style.top = '10px';
+            title.style.fontSize = '21px';
+            subtitle.style.fontSize = '18px';
+            if (window.innerWidth < 650){
+                display.style.width = window.innerWidth-10+'px';
+                display.style.left = 'calc(50% - '+(display.offsetWidth)/2+'px)';
+                console.log('calc(50% - '+parseInt((display.offsetWidth/2).toString())+'px)')
+            }
+        }
+
+        if (menu.allergens){
+            subtitle.innerHTML = menu.description+'. allergens: <span style="font-weight: 600">'+menu.allergens+'<br><br>'+menu.price.toString().price()+'</span>';
+        }
+
+        let plus = document.createElement('div');
+        plus.setAttribute('class','checkout');
+        plus.style.bottom = '70px';
+        plus.addImage('plus');
+        display.appendChild(plus);
+
+        let minus = document.createElement('div');
+        minus.setAttribute('class','checkout');
+        minus.style.bottom = '70px';
+        minus.addImage('minus');
+        minus.style.right = plus.offsetWidth+10+'px';
+        display.appendChild(minus);
+
+        let quantity = document.createElement('div');
+        quantity.style.bottom = '70px';
+        quantity.style.position = 'absolute';
+        quantity.style.margin = '25px'
+        quantity.style.fontSize = '18px';
+        quantity.style.right = plus.offsetWidth+minus.offsetWidth+50+'px';
+        display.appendChild(quantity);
+
+        function update_quantity(by){
+            menu.quantity = menu.quantity+by;
+            if (menu.quantity < 1){
+                menu.quantity = 1
+            }
+            if (menu.quantity > 10){
+                menu.quantity = 10
+            }
+            quantity.textContent = 'Quantity: '+menu.quantity
+        }
+        update_quantity(0);
+
+        plus.onclick = function (){
+            update_quantity(1)
+        }
+
+        minus.onclick = function (){
+            update_quantity(-1)
+        }
+
+        let basket_button = document.createElement('div');
+        basket_button.setAttribute('class','checkout');
+        basket_button.textContent = 'add to basket';
+        if (basket.contains(menu.name)){
+            basket_button.textContent = 'update basket';
+        }
+        display.appendChild(basket_button);
+        basket_button.onclick = function (){
+            show_display(false);
+            let previous = basket.contains(menu.name);
+            if (previous !== null){
+                previous.quantity = menu.quantity;
+            }
+            else{
+                basket.append(new BasketItem(menu.name,menu.quantity,null,menu.price));
+            }
+            update_basket();
+        }
+
+        let cancel = document.createElement('div');
+        cancel.setAttribute('class','cancel');
+        cancel.textContent = 'cancel';
+        cancel.style.right = basket_button.offsetWidth+20+'px';
+        display.appendChild(cancel);
+        cancel.onclick = function (){
+            show_display(false);
+        }
+
+        if (!isMobile() && (menu.instructions !== false)){
+            let instructions = document.createElement('div');
+            instructions.setAttribute('class','cancel');
+            instructions.textContent = 'instructions';
+            instructions.style.left = 20+'px';
+            display.appendChild(instructions);
+            instructions.onclick = function (){
+                open_instructions(menu.name)
+            }
+        }
+    }
+
+    HTMLElement.prototype.addImage = function (image){
+        let img = document.createElement('img');
+        img.src = 'media/'+image+'.png';
+        img.setAttribute('class','img');
+        this.appendChild(img);
+    }
+    on_load_page()
+</script>
+</html>

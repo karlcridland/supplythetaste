@@ -1,0 +1,120 @@
+table.sign_in{
+    width: 80%;
+    height: 35%;
+    left: 10%;
+    top: 20%;
+    position: absolute;
+    text-align: center;
+}
+
+input.sign_in{
+    height: 30px;
+    border: unset;
+    box-shadow: 0 5px 20px 5px rgba(140, 140, 140, 0.2);
+    padding: 7px 20px;
+    font-size: 18px;
+    border-radius: 6px;
+    width: 300px;
+    -webkit-appearance: none;
+    /*border: solid 2px rgba(0,0,0,0.7);*/
+}
+
+div.sign_in{
+    width: 100px;
+    margin-left: calc(50% - 70px);
+    padding: 10px 20px;
+    border-radius: 6px;
+    background-image: linear-gradient(60deg, #039be5, #7acaf1);
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    top: 85%;
+    display: inline-block;
+    margin-top: 25%;
+    margin-bottom: 10%;
+}
+
+div.sign_in:Hover{
+    background-image: linear-gradient(60deg, #0387c8, #7dbbd9);
+}
+
+span.sign_in{
+    cursor: pointer;
+    color: #888888;
+    width: 100%;
+    margin-top: 5%;
+    text-align: center;
+}
+
+span.sign_in:Hover{
+    color: darkorange;
+}
+
+div.mobile_form{
+    position: absolute;
+    width: calc(50% - 75px);
+    background-color: white;
+    padding: 10px 0;
+    top: calc(5% - 5px);
+    z-index: 9001;
+    left: 50px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+div.form{
+    width: 100%;
+    min-height: 100%;
+}
+
+div.forgotten{
+    position: absolute;
+    width: 400px;
+    height: 200px;
+    left: calc(50% - 260px);
+    top: calc(50% - 160px);
+    background-color: white;
+    border-radius: 8px;
+    padding: 30px;
+}
+
+input.forgotten{
+    position: absolute;
+    top: 125px;
+    left: 20px;
+    width: calc(100% - 80px);
+    height: 0;
+    padding: 20px 10px;
+}
+
+div.send_email{
+    background-color: #00a6ff;
+    border-radius: 6px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 40px;
+    margin-bottom: 30px;
+    padding: 10px 20px;
+    color: white;
+    cursor: pointer;
+}
+
+div.send_email:Hover{
+    background-color: #037ce5;
+}
+
+div.forgotten_cancel{
+    border-radius: 6px;
+    position: absolute;
+    bottom: 0;
+    margin: 20px;
+    margin-bottom: 30px;
+    padding: 10px 20px;
+    color: #626262;
+    cursor: pointer;
+}
+
+div.forgotten_cancel:Hover{
+    color: #ff7f0f;
+}

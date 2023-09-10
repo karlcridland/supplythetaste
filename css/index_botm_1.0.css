@@ -1,0 +1,101 @@
+div.navigation{
+    position: absolute;
+    width: 120px;
+    height: 40px;
+    left: calc(50% - 60px);
+    bottom: 30px;
+}
+
+div.nav_dot{
+    height: 6px;
+    width: 6px;
+    margin: 14px;
+    border-radius: 5px;
+    color: white;
+    border: solid 2px black;
+    position: relative;
+    float: left;
+    cursor: pointer;
+}
+
+div.nav_dot:Hover{
+    border-color: #039be5;
+}
+
+img.botm_arrow{
+    position: absolute;
+    top: calc(50% - 20px);
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+div.botm_scroll{
+    position: absolute;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,0.9);
+    scroll-behavior: smooth;
+}
+
+div.main{
+    scroll-behavior: smooth;
+}
+
+div.scroll_screen{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    float: top;
+    font-family: sans-serif;
+
+}
+
+div.scroll_screen_title{
+    position: relative;
+    left: 0;
+    top: 0;
+    margin: 50px;
+    margin-right: unset;
+    top: 50px;
+    display: inline;
+    font-size: 50px;
+    margin-left: 100px;
+    padding: 10px 20px;
+    background-color: white;
+    border-radius: 8px;
+}
+
+div.scroll_screen_body{
+    position: relative;
+    left: 0;
+    top: 50px;
+    margin: 50px;
+    font-size: 3vh;
+    min-font-size: 20px;
+    margin-left: 100px;
+    font-weight: 300;
+    width: calc(50% - 70px);
+    min-width: 500px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+
+}
+
+img.scroll_screen_img{
+    position: absolute;
+    right: -10%;
+    bottom: -20%;
+    height: 90%;
+    width: 60%;
+    object-fit: contain;
+    overflow: visible;
+}

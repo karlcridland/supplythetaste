@@ -1,0 +1,251 @@
+
+div.loading{
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    margin-top: calc(30% - 10px);
+    color: white;
+}
+div.main{
+    font-family: sans-serif;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+}
+div.basket{
+    background-color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 350px;
+    height: 100%;
+    overflow: hidden;
+    font-family: sans-serif;
+}
+div.filter{
+    position: absolute;
+    left: 350px;
+    top: 0;
+    height: 60px;
+    width: calc(100% - 350px);
+    border-left: solid 2px #eaeaea;
+}
+div.result{
+    position: absolute;
+    top: 60px;
+    left: 350px;
+    width: calc(100% - 350px);
+    height: calc(100% - 100px);
+    /*background-color: #78bcf7;*/
+    background-image: linear-gradient(54deg, #00a5ff, #77d8ff);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 20px;
+}
+div.items{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 170px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 0 20px 20px;
+    z-index: 20;
+}
+div.total{
+    position: absolute;
+    top: calc(100% - 150px);
+    left: 0;
+    width: 100%;
+    height: 150px;
+    z-index: 0;
+    border-top: solid 2px #c1c1c1;
+}
+div.checkout{
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+    height: 20px;
+    margin: 15px 40px 15px 5px;
+    cursor: pointer;
+    background-color: #037ce5;
+    color: white;
+    border-radius: 4px;
+    padding: 10px 20px;
+}
+div.checkout:Hover{
+    background-color: #039be5;
+}
+div.cancel{
+    position: absolute;
+    bottom: 10px;
+    height: 20px;
+    margin: 15px 40px 15px 5px;
+    cursor: pointer;
+    color: gray;
+    border-radius: 4px;
+    padding: 10px 20px;
+}
+div.cancel:Hover{
+    color: darkorange;
+}
+div.total_text{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 25px;
+    margin: 25px 40px 25px 25px;
+    font-size: 20px;
+}
+div.option{
+    background-color: white;
+    display: inline;
+    margin: 20px;
+    float: left;
+    padding: 30px;
+    border-radius: 4px;
+    width: 200px;
+    min-height: 100px;
+    cursor: pointer;
+    box-shadow: 0 0 10px 10px rgba(102, 100, 100, 0.16);
+    overflow: hidden;
+}
+div.option_type{
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    width: calc(100% - 10px);
+    height: 6px;
+    border-radius: 3px;
+    opacity: 0.5;
+}
+div.menu_display{
+    position: absolute;
+    width: 700px;
+    height: 500px;
+    left: calc(50% - 350px);
+    top: calc(50% - 250px);
+    background-color: white;
+    font-family: sans-serif;
+    z-index: 101;
+}
+div.display_title{
+    position: absolute;
+    right: 20px;
+    width: calc(50% - 40px);
+    height: calc(100% - 200px);
+    padding: 20px;
+    padding-top: 40px;
+    font-family: sans-serif;
+    font-size: 25px;
+    /*max-height: 120px;*/
+    overflow: scroll;
+}
+div.display_subtitle{
+    position: absolute;
+    right: 20px;
+    width: calc(50% - 40px);
+    top: 110px;
+    overflow: auto;
+    max-height: 230px;
+    padding: 20px;
+    font-family: sans-serif;
+    font-size: 22px;
+    font-weight: 300;
+}
+img.display_image{
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    width: calc(50% - 40px);
+    transform: scale(0.8,0.8);
+    object-fit: cover;
+    overflow: hidden;
+}
+img.img{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    transform: scale(0.8,0.8);
+}
+div.basket_display{
+    position: relative;
+    width: calc(100% - 110px);
+    padding: 20px;
+    margin: 20px 4px 4px;
+    left: 0;
+    top: 0;
+    min-height: 100px;
+    box-shadow: 0 5px 5px 5px rgba(0, 0, 0, 0.07);
+    border-radius: 4px;
+    padding-right: 40px;
+}
+div.edit_item{
+    transform: translate(-20px 20px) scale(0.7, 0.7);
+}
+img.edit_item{
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+span.menu_type{
+    font-weight: 400;
+    text-decoration: blink;
+}
+.head_count{
+    position: absolute;
+}
+div.head_count{
+    left: 0;
+    width: calc(50% - 08px);
+    bottom: 130px;
+    padding-left: 80px;
+    padding-top: 30px;
+    font-size: 18px;
+    height: 37px;
+    font-weight: 400;
+}
+img.head_count{
+    height: 50px;
+    left: 30px;
+    width: 50px;
+    object-fit: cover;
+    transform: scale(0.5,0.5) translateY(-30px);
+}
+
+div.pick_category{
+    width: calc(100% - 40px);
+    border: unset;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: 400;
+    min-height: 18px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+input.filter{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    border: unset;
+    font-size: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: calc(100% - 40px);
+}
+input.filter:focus{
+    outline: none;
+}

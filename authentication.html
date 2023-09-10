@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" sizes="16x16" href="media/logo.png">
+    <title>supply the account details</title>
+    <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase.js"></script>
+    <script src="javascript/firebase_1.2.js"></script>
+    <script src="javascript/header_1.14.js"></script>
+    <link rel="stylesheet" href="css/header_1.0.css">
+    <style>
+        div.signin_desktop{
+            background-color: white;
+            position: absolute;
+            width: 560px;
+            height: 360px;
+            left: calc(50% - 300px);
+            top: calc(50% - 180px);
+            padding: 20px;
+            font-family: sans-serif;
+            font-size: 30px;
+            font-weight: 300;
+            text-align: right;
+            overflow: scroll;
+        }
+        div.register_desktop{
+            background-color: white;
+            position: absolute;
+            width: 560px;
+            left: calc(50% - 300px);
+            padding: 20px;
+            font-family: sans-serif;
+            font-size: 30px;
+            font-weight: 300;
+            text-align: right;
+            overflow: scroll;
+        }
+        div.input_background{
+            position: relative;
+            border: solid 2px #c4c4c4;
+            margin: 20px;
+            width: calc(100% - 60px);
+            height: 50px;
+            text-align: left;
+            font-size: 14px;
+            padding: 10px;
+            padding-top: 5px;
+            border-radius: 4px;
+            box-shadow: 0 13px 29px 10px rgba(9, 9, 9, 0.02);
+        }
+        input.field{
+            position: absolute;
+            left: 0;
+            padding: 10px 20px;
+            width: calc(100% - 40px);
+            bottom: 0;
+            height: 22px;
+            border: none;
+            font-size: 24px;
+            font-weight: 400;
+            font-family: sans-serif;
+            background-color: unset;
+        }
+        input.field:focus{
+            outline: none;
+        }
+        div.button{
+            text-align: left;
+            font-weight: 400;
+            cursor: pointer;
+            font-size: 20px;
+            /*margin: 20px;*/
+            top: 20px;
+            margin-top: 0;
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+        div.button:Hover{
+            color: #039be5;
+        }
+        div.terms{
+            text-align: left;
+            font-weight: 400;
+            font-size: 20px;
+            top: 20px;
+            margin-top: 0;
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+        a.terms{
+            cursor: pointer;
+            text-decoration: none;
+            color: black;
+        }
+        a.terms:Hover{
+            color: #039be5;
+        }
+        input.terms{
+            position: absolute;
+            /* display: inline; */
+            left: 55px;
+            top: 536px;
+            transform: scale(1.6,1.6);
+        }
+
+        div.forgotten{
+            position: absolute;
+            width: 400px;
+            height: 200px;
+            left: calc(50% - 230px);
+            top: calc(50% - 160px);
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            font-family: sans-serif;
+        }
+
+        input.forgotten{
+            position: absolute;
+            top: 125px;
+            left: 20px;
+            width: calc(100% - 80px);
+            height: 0;
+            padding: 20px 10px;
+        }
+
+        div.send_email{
+            background-color: #00a6ff;
+            border-radius: 6px;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            margin: 40px;
+            margin-bottom: 30px;
+            padding: 10px 20px;
+            color: white;
+            cursor: pointer;
+        }
+
+        div.send_email:Hover{
+            background-color: #037ce5;
+        }
+
+        div.forgotten_cancel{
+            border-radius: 6px;
+            position: absolute;
+            bottom: 0;
+            margin: 20px;
+            margin-bottom: 30px;
+            padding: 10px 20px;
+            color: #626262;
+            cursor: pointer;
+        }
+
+        div.forgotten_cancel:Hover{
+            color: #ff7f0f;
+        }
+
+        input.sign_in{
+            height: 30px;
+            border: unset;
+            box-shadow: 0 5px 20px 5px rgba(140, 140, 140, 0.2);
+            padding: 7px 20px;
+            font-size: 18px;
+            border-radius: 6px;
+            width: 300px;
+            -webkit-appearance: none;
+            /*border: solid 2px rgba(0,0,0,0.7);*/
+        }
+        div.action{
+            background-color: #039be5;
+            font-weight: 400;
+            font-size: 18px;
+            padding: 10px 20px;
+            display: inline;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        div.action:hover{
+            background-color: #6dcff6;
+        }
+
+    </style>
+</head>
+<body id="body" onload="initHeader();" style="opacity: 0;" onresize="resize()">
+<div id="header" class="header"> <a class="logo" id="logo" href="/index.html">supply the taste</a></div>
+<div id="main" class="main" style="background-color: #6dcff6">
+    <div id="result" style="opacity: 0;" class="result"></div>
+</div>
+</body>
+<script>
+    let sign_in_screen = false;
+    const speed = 550;
+    let height = 360;
+
+    function change_screen(){
+        sign_in_screen = !sign_in_screen;
+        if (sign_in_screen){
+            height = 360;
+            populate(
+                'sign in',
+                ['email address','password'],
+                ['forgotten password','register for an account']
+            );
+        }
+        else{
+            height = 640;
+            populate(
+                'register',
+                ['first name','last name','email address','password','confirm password'],
+                ['I confirm I have read, and accept Supply The Taste\'s <a id="terms">terms and conditions</a>','back'])
+        }
+    }
+
+    function resize(){
+        let view = document.getElementById('result');
+        let screen_height = window.innerHeight-100;
+        let screen_width = window.innerWidth;
+        if (height > screen_height){
+            view.style.height = (screen_height)+'px';
+            view.style.top = '0';
+        }
+        else{
+            view.style.height = height+'px';
+            view.style.top = 'calc(50% - '+(height/2)+'px)';
+        }
+        if (560 > screen_width){
+            view.style.width = (screen_width-40)+'px';
+            view.style.left = '0';
+        }
+        else{
+            view.style.width = '560px';
+            view.style.left = 'calc(50% - 300px)';
+        }
+        view.style.opacity = '1';
+    }
+
+    function populate(title,contents,extra){
+        let view = document.getElementById('result');
+
+        let height = 660;
+        if (title === 'sign in'){
+            height = 360;
+        }
+
+        view.animate([{top: 'calc(50% - '+(height/2)+'px)', height: height+'px'}
+        ],{
+            duration: speed,
+            iterations: 1
+        })
+        window.setTimeout(function (){
+            view.style.top = 'calc(50% - '+(height/2-20)+'px)';
+            view.style.height = height+'px';
+            resize();
+        },speed-20)
+
+        view.innerHTML = '';
+        view.setAttribute('class',(title+'_desktop').replaceAll(' ',''));
+        view.textContent = title;
+
+        contents.forEach(function (item){
+            let background = create_input(item);
+            view.appendChild(background);
+            let input = document.getElementById(item);
+
+            if (item.includes('email')){
+                input.type = 'email';
+            }
+            if (item.includes('password')){
+                input.type = 'password';
+            }
+        })
+
+        extra.forEach(function (item){
+            let button = document.createElement('div');
+            button.setAttribute('class','button');
+            view.appendChild(button);
+            button.innerHTML = item;
+
+            function collapse(callback){
+                view.style.overflow = 'hidden';
+                view.animate([{top: '50%', height: '0'}
+                ],{
+                    duration: speed,
+                    iterations: 1
+                })
+                window.setTimeout(function (){
+                    view.style.top = '50%';
+                    view.style.height = '0';
+                    view.style.overflow = 'scroll';
+                    callback();
+                },speed-50)
+            }
+
+            switch (item){
+                case 'forgotten password':
+                    button.onclick = forgotten_password_popup;
+                    break;
+                case 'register for an account':
+                    button.onclick = function (){
+                        collapse(function (){
+                            change_screen();
+                        })
+                    }
+                    break;
+                case 'back':
+                    button.onclick = function (){
+                        collapse(function (){
+                            change_screen();
+                        })
+                    }
+                    break;
+                case 'I confirm I have read, and accept Supply The Taste\'s <a id="terms">terms and conditions</a>':
+                    button.style.paddingLeft = '60px';
+                    button.style.width = 'calc(100% - 100px)'
+                    let terms = document.getElementById('terms');
+                    button.setAttribute('class','terms');
+                    terms.setAttribute('class','terms');
+                    terms.href = '/terms';
+
+                    let tick_box = document.createElement('input');
+                    tick_box.type = 'checkbox';
+                    button.appendChild(tick_box);
+                    tick_box.setAttribute('class','terms');
+                    tick_box.setAttribute('id','terms');
+
+                    break;
+            }
+        })
+
+        let action = document.createElement('div');
+        action.setAttribute('class','action');
+        action.textContent = 'continue';
+        view.appendChild(action)
+
+        window.setTimeout(function (){
+            document.getElementById(contents[0]).focus();
+        },speed+20)
+    }
+
+    function create_input(item){
+        let background = document.createElement('div');
+        background.setAttribute('class','input_background');
+        background.textContent = item;
+
+        let input = document.createElement('input');
+        input.setAttribute('class','field');
+        background.appendChild(input);
+        input.setAttribute('id',item);
+
+        background.onclick = function (){
+            input.focus();
+        }
+
+        return background;
+    }
+
+    function forgotten_password_popup(){
+        let view = document.createElement('div');
+        view.setAttribute('class','forgotten');
+        let cover = document.createElement('div');
+        cover.setAttribute('class','cover')
+        document.getElementById('main').appendChild(cover);
+        cover.appendChild(view);
+        view.textContent = 'forgotten password'
+
+        if (isMobile()){
+            if (window.innerWidth < 400){
+                view.style.width = window.innerWidth-100+'px';
+                view.style.left = '20px';
+            }
+        }
+
+        let background = create_input('email')
+        view.appendChild(background);
+        background.style.fontWeight = '300';
+        background.style.left = 'unset';
+        background.style.width = '100%';
+        background.style.transform = 'translate(-30px,10px)';
+        let input = document.getElementById('email');
+        input.value = document.getElementById('email address').value;
+        window.setTimeout(function (){
+            input.focus();
+        },150);
+
+        let confirm = document.createElement('div');
+        confirm.setAttribute('class','send_email');
+        confirm.textContent = 'send email';
+        view.appendChild(confirm);
+
+        let cancel = document.createElement('div');
+        cancel.setAttribute('class','forgotten_cancel');
+        cancel.textContent = 'cancel';
+        cancel.style.right = confirm.offsetWidth+20+'px';
+        view.appendChild(cancel);
+
+        confirm.onclick = function (){
+            if (input.validateEmail()){
+                let email = input.value
+                recover_email(input, function (){
+                    background.innerHTML = 'email sent to '+email;
+                    background.style.border = 'unset';
+                    background.style.fontSize = '18px';
+                    view.removeChild(cancel);
+                    confirm.textContent = 'finish';
+                    confirm.onclick = function (){
+                        document.getElementById('main').removeChild(cover);
+                    }
+                });
+            }
+        }
+
+        cancel.onclick = function (){
+            document.getElementById('main').removeChild(cover);
+        }
+
+    }
+
+    HTMLInputElement.prototype.matchInput = function (input){
+        return this.error_message(((this.value === input.value) && this.value.length > 0),'must match password');
+    }
+    HTMLInputElement.prototype.validateEmail = function (){
+        let a = this;
+        return a.error_message((/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(a.value.replaceAll(' ',''))),'please use a valid email address');
+    }
+    HTMLInputElement.prototype.validatePassword = function (){
+        let regex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
+        return this.error_message(regex.test(this.value),'password must contain a mix of a-z/A-Z/0-9, min 8 characters');
+    }
+
+    change_screen();
+</script>
+</html>

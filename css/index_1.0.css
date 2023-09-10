@@ -1,0 +1,197 @@
+div.deal_of_month{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 0;
+    height: 100%;
+    background-color: white;
+    box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 1);
+    clip: inherit;
+    color: white;
+}
+img.deal_of_month{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 0;
+    height: 100%;
+    z-index: 0;
+    object-fit: cover;
+    filter: blur(100px);
+    opacity: 0.9;
+    transform: scale(1.2,1.2);
+}
+div.month_title{
+    text-align: center;
+    font-size: 30px;
+    padding: 10% 30px 30px;
+    font-family: sans-serif;
+}
+table.deal_of_month_desc{
+    position: absolute;
+    left: 10%;
+    width: 80%;
+    top: 5%;
+    height: 70%;
+    font-size: 3.3vh;
+    text-align: left;
+    z-index: 50;
+}
+td.deal_of_month_desc{
+    font-size: 2.3vh;
+    padding-left: 30px;
+}
+img.deal_of_month{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    filter: blur(2px);
+    border-radius: 30px;
+}
+table.deal_of_month{
+    padding: 40px;
+    height: calc(70% - 100px);
+    font-size: 3.1vh;
+    max-height: 70%;
+    overflow: hidden;
+    z-index: 50;
+    position: absolute;
+}
+h1.deal_of_month{
+    position: absolute;
+    padding: 20px;
+    font-size: 4.3vh;
+    bottom: -20px;
+    left: 20px;
+    max-height: 30%;
+    z-index: 50;
+}
+div.title{
+    padding: 50px;
+    font-size: 60px;
+    text-shadow: 2px 2px #ff0000;
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+div.freebie{
+    padding: 40px;
+    font-size: 24px;
+    text-shadow: 2px 3px rgba(78, 78, 78, 0.1);
+    color: black;
+    position: absolute;
+    bottom: 100px;
+    right: 15px;
+    font-family: Arial,sans-serif;
+}
+img.social{
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+}
+div.contents{
+    height: calc(100% / 3);
+    top: calc(200% / 3);
+    width: 100%;
+    left: 0;
+    position: absolute;
+    background-color: #5a5a5a;
+    box-shadow: inset 0 0 26px 16px rgba(34, 34, 34, 0.2);
+    color: white;
+}
+div.contents_text{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: calc(100% / 3);
+    text-align: center;
+    padding-bottom: 30px;
+}
+div.button{
+    position: absolute;
+    width: calc(100% / 3);
+    height: 100%;
+    object-fit: contain;
+    cursor: pointer;
+}
+img.contents{
+    position: absolute;
+    width: calc(100% / 3);
+    height: 100%;
+    object-fit: contain;
+}
+div.front{
+    color: white;
+    padding: 5% 5% 0;
+    font-size: 3vh;
+    font-family: sans-serif;
+    height: 2%;
+}
+div.front_logo{
+    color: white;
+    font-size: 10vh;
+    padding: 5%;
+    font-family: sans-serif;
+    bottom: 0;
+    position: absolute;
+}
+div.about_us{
+    position: absolute;
+    width: 33%;
+    right: 0;
+    top: 10%;
+    margin: 5% 10% 10%;
+    padding: 3%;
+    font-size: 2.9vh;
+    border-radius: 8px;
+    color: black;
+    font-family: Arial,sans-serif;
+    background-color: white;
+    box-shadow: 0 10px 10px 10px rgba(90, 90, 90, 0.1);
+}
+div.info_box:Hover{
+    border: 4px solid #ffe600;
+}
+td.info_box{
+    background-color: rgba(90, 90, 90, 0.3);
+    padding: 10px;
+    vertical-align: bottom;
+    background-size: cover;
+    border-radius: 10px;
+    border: solid 4px white;
+    cursor: pointer;
+    color: white;
+}
+td.info_box:Hover{
+    border: 4px solid #ffd400;
+    color: #ffd400;
+}
+tr.info_box{
+    border-collapse:separate;
+    border-spacing:5em;
+}
+img.info_box{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+table.info_pane{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    height: calc(100% - 100px);
+    padding: 2.5% 2.5% 2.5% 7.5%;
+    z-index: 1000;
+}
+mark.info_box{
+    background-color: rgba(0,0,0,0.7);
+    color: inherit;
+    padding: 5px;
+    border-radius: 4px;
+}

@@ -1,0 +1,293 @@
+div.menu{
+    position: absolute;
+    margin: 40px;
+    height: calc(100% - 80px);
+    width: 80px;
+    border-radius: 35px;
+    box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.5);
+    overflow: scroll;
+}
+
+div.main{
+    overflow: hidden;
+}
+
+img.menu_button{
+    position: relative;
+    height: 40px;
+    margin: 20px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.menu_button_description{
+    position: absolute;
+    padding: 10px 30px;
+    left: 140px;
+    background-color: #a259ef;
+    border-radius: 8px;
+    color: white;
+    box-shadow: 0 0 5px 5px rgba(234, 234, 234, 0.3);
+    z-index: 1000;
+}
+
+div.account_display{
+    position: absolute;
+    left: 160px;
+    top: 0;
+    height: 100%;
+    overflow-y: scroll;
+    width: calc(100% - 160px);
+}
+
+table.meal_table{
+    position: absolute;
+    padding: 50px 50px 0;
+    left: 0;
+    width: calc(100% - 80px);
+}
+
+th.meal_table{
+    text-align: left;
+}
+
+td.meal_table{
+    height: 100px;
+    width: 25%;
+}
+
+input.meal_table{
+    padding: 10px;
+    font-size: 20px;
+    width: calc(100% - 60px);
+    border: unset;
+    border-bottom: solid 2px dimgray;
+    transform: translateY(10px);
+}
+
+textarea.meal_table{
+    padding: 10px;
+    font-size: 20px;
+    width: calc(100% - 60px);
+    border: unset;
+    border-bottom: solid 2px dimgray;
+    resize: none;
+}
+
+div.meal_table{
+    width: calc(100% - 60px);
+    height: 60px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+    display: inline;
+    white-space: nowrap;
+    float: left;
+}
+
+div.meal_table_bubble{
+    position: relative;
+    margin-left: 10px;
+    width: 34px;
+    height: 28px;
+    padding-top: 6px;
+    font-size: 16px;
+    border-radius: 19px;
+    top: 15px;
+    white-space: normal;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    color: white;
+    border: solid 2px white;
+}
+
+div.meal_table_bubble:Hover{
+    border: solid 2px black;
+}
+
+div.save{
+    position: absolute;
+    margin: 30px;
+    padding: 10px 20px;
+    background-image: linear-gradient(60deg, #039be5, #7acaf1);
+    top: 100px;
+    right: 0;
+    display: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+div.save:Hover{
+    background-image: linear-gradient(60deg, #0387c8, #7dbbd9);
+
+}
+
+div.save:Active{
+    background-image: linear-gradient(60deg, #3aac09, #72f122);
+
+}
+
+table.breakdown{
+    margin: 40px;
+    width: calc(100% - 60px);
+    min-height: 300px;
+    background-image: linear-gradient(330deg, #0767b1, #20a4fd);
+    border-radius: 35px;
+    font-size: 30px;
+    padding: 40px 40px 40px 0;
+    color: white;
+}
+
+table.monthly{
+    top: 40px;
+    margin: 40px 40px 80px;
+    width: calc(100% - 60px);
+    height: 400px;
+    background-image: linear-gradient(330deg, #0767b1, #20a4fd);
+    border-radius: 35px;
+    font-size: 30px;
+    padding: 20px;
+    color: white;
+    text-align: center;
+}
+
+table.users{
+    margin: 40px;
+    width: calc(100% - 60px);
+    float: right;
+    min-height: 400px;
+    background-image: linear-gradient(330deg, #0767b1, #20a4fd);
+    border-radius: 35px;
+    padding: 40px 40px 40px 0;
+    font-size: 30px;
+    color: white;
+}
+
+table.months{
+    position: absolute;
+    margin: 40px;
+    background-color: white;
+    height: calc(100% - 80px);
+    width: 160px;
+    border-radius: 35px;
+    box-shadow: 0 0 10px 10px rgba(160, 160, 160, 0.1);
+    text-align: center;
+}
+
+table.edit_special{
+    padding-left: 30px;
+    margin: 40px 40px 40px 240px;
+    width: calc(80% - 300px);
+    height: calc(100% - 80px);
+}
+
+input.edit_special{
+    width: calc(100% - 100px);
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 20px;
+    height: 60%;
+    border: unset;
+    border-bottom: solid 2px dimgray;
+}
+
+div.polaroid{
+    position: absolute;
+    border: solid 2px #aeaeae;
+    width: 20%;
+    height: 40%;
+    right: 3%;
+    top: 100px;
+    cursor: pointer;
+    box-shadow: 0 0 10px 10px rgba(160, 160, 160, 0.1);
+}
+
+img.picture{
+    position: absolute;
+    width: calc(100% - 44px);
+    margin: 20px;
+    border: solid 2px #aeaeae;
+    object-fit: cover;
+    background-color: #565656;
+}
+
+div.polaroid_caption{
+    position: absolute;
+    bottom: 0;
+    padding: 25px;
+    color: #888888;
+}
+
+table.task_list{
+    position: absolute;
+    width: calc(100% - 40px);
+    min-height: 100px;
+    left: 0;
+    top: 0;
+    margin: 20px;
+    font-family: sans-serif;
+}
+
+th.task_list{
+    text-align: right;
+    font-size: 36px;
+    padding: 20px;
+}
+
+td.task_list{
+    padding: 20px;
+}
+
+div.tfb{
+    margin: 10px;
+    padding: 10px 20px;
+    max-width: 100px;
+    text-align: center;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 5px 8px 8px rgba(117, 117, 117, 0.1);
+}
+
+div.user_banner{
+    position: absolute;;
+    padding: 20px;
+    padding-left: 30px;
+    margin: 40px;
+    width: calc(100% - 170px);
+    font-size: 30px;
+    background-image: linear-gradient(330deg, #6e13cf, #a259ef);
+    color: white;
+    border-radius: 45px;
+    z-index: 2;
+    font-family: sans-serif;
+
+}
+
+div.user_banner_back{
+    padding: 20px;
+    padding-left: 30px;
+    padding-top: 120px;
+    margin: 40px;
+    width: calc(100% - 170px);
+    font-size: 20px;
+    background-image: linear-gradient(330deg, #e4c7ff, #efdeff);
+    color: black;
+    border-radius: 45px;
+    min-height: 60px;
+    position: absolute;
+    z-index: 1;
+    font-family: sans-serif;
+}
+
+span.offer{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+span.offer:Hover{
+    color: #039be5;
+}

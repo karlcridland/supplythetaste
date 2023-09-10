@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" sizes="16x16" href="media/logo.png">
+    <title>supply the checkout</title>
+    <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase.js"></script>
+    <script src="javascript/firebase_1.2.js"></script>
+    <script src="javascript/header_1.14.js"></script>
+    <script src="javascript/checkout_1.5.js"></script>
+    <link rel="stylesheet" href="css/checkout_1.0.css">
+    <link rel="stylesheet" href="css/header_1.0.css">
+    <style>
+        a.test_purchase{
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 10px 30px;
+            color: white;
+            /*background-image: linear-gradient(90deg, #002a75, #039be5);*/
+            background-color: #007dea;
+            font-family: sans-serif;
+        }
+        a.test_purchase:Hover{
+            background-color: #039be5;
+        }
+    </style>
+</head>
+<body id="body" onload="initHeader(); initCheckout()" style="background-color: #f0f9ff; opacity: 0;">
+<div id="header" class="header" style="background-color: white"> <a class="logo" id="logo" href="/index.html">supply the taste</a></div>
+<div id="main" class="main" style="opacity: 0">
+    <section class="banner" id="banner" style="height: unset">
+        <section class="inside" id="left" style="overflow: initial; max-width: 1000px">
+            <div class="checkout_box" id="name" style="transform: translateX(1.25%)">details</div>
+<!--            <div class="checkout_box" id="delivery" style="transform: translateX(1.25%); margin-top: 60px">delivery</div>-->
+            <div class="checkout_box" id="address" style="transform: translateX(1.25%); margin-top: 60px">address</div>
+        </section>
+        <section class="inside" id="right" style="overflow: initial">
+            <div class="checkout_box" id="basket" style="transform: translateX(-1.25%)">basket</div>
+            <div class="checkout_box" id="voucher" style="transform: translateX(-1.25%)">promo code/voucher
+            <input id="voucher_code" type="text" style="bottom: 30px; left: 30px; width: calc(100% - 240px); position: absolute;">
+                <a id="apply" class="test_purchase">apply</a>
+            </div>
+            <div class="checkout_box" id="payment" style="transform: translateX(-1.25%); margin-top: 60px; min-height: 240px; padding: 20px;
+    width: calc(90% - 40px)">payment
+                <div style="margin: 50px calc(50% - 150px) 10px;max-width: 300px; display: none" id="paypal_box">
+
+                    <!-- Set up a container element for the button -->
+                    <div id="paypal-button-container"></div>
+                    <script src="https://www.paypal.com/sdk/js?client-id=ATh29aA0ATzSijaClroBliS1EhFWi9CdLcvUCKqKg_OJDanV92novB-KxMfeukL_8yMnyISFSRcyZj9b&currency=GBP"></script>
+                    <script>
+                        function set_up_paypal(){
+                            document.getElementById('paypal-button-container').innerHTML = '';
+                            paypal.Buttons({
+                                createOrder: function(data, actions) {
+                                    console.log("clicked")
+                                    return actions.order.create({
+                                        purchase_units: [{
+                                            amount: {
+                                                value: basket.paypal()
+                                            }
+                                        }]
+                                    });
+                                },
+
+                                onApprove: function(data, actions) {
+                                    return actions.order.capture().then(function(details) {
+                                        // Show a success message to the buyer
+
+                                        document.getElementById('body').style.pointerEvents = 'none';
+                                        let time_stamp = temp_stamp;
+
+                                        try{
+                                            commit_address();
+                                        }
+                                        catch(e){}
+                                        
+                                        try{
+                                            let writes = 7
+                                            function finished_writing(){
+                                                if (writes === 0){
+                                                    window.location.href = '/confirmed.html?id='+time_stamp;
+                                                }
+                                            }
+                                            let tick_off = function (){
+                                                writes--;
+                                                finished_writing();
+                                            }
+                                            write('orders/status/'+uid+'/'+time_stamp+'/prepared',false,tick_off);
+                                            write('orders/status/'+uid+'/'+time_stamp+'/dispatched',false,tick_off);
+                                            write('orders/user/'+uid+'/'+time_stamp+'/name',user_details['name'],tick_off);
+                                            write('orders/user/'+uid+'/'+time_stamp+'/date',user_details['date'],tick_off);
+                                            write('orders/user/'+uid+'/'+time_stamp+'/note',user_details['note'],tick_off);
+                                            write('orders/user/'+uid+'/'+time_stamp+'/postage',500,tick_off);
+                                            if (basket.voucher_code !== undefined){
+                                                write('orders/user/'+uid+'/'+time_stamp+'/voucher',basket.voucher_code+': '+basket.voucher+'%',tick_off);
+                                            }
+                                            else{
+                                                tick_off();
+                                            }
+
+                                            sessionStorage.setItem("basket", null);
+                                            
+                                        }
+                                        catch (e) {
+                                            
+                                        }
+
+                                    });
+                                }
+
+
+                            }).render('#paypal-button-container');
+                        }
+                        let apply = document.getElementById('apply');
+                        let voucher = document.getElementById('voucher_code');
+                        function attempt_code(code){
+                            if (code === 'firstorder'){
+                                if (order_count === 0){
+                                    basket.apply_coupon(code,50,true);
+                                }
+                                else{
+                                    voucher.error_message(false,'only available for your first order');
+                                }
+                            }
+                            else{
+                                ref.child('promo/code/'+code).once('value',snapshot=>{
+                                    if (snapshot.exists()){
+                                        let amount = snapshot.val();
+                                        let n = parseInt(amount.replaceAll('%',''));
+
+                                        if (amount.includes('%')){
+                                            basket.apply_coupon(code,n,true);
+                                        }
+                                        else if(amount.includes(':')){
+                                            basket.apply_coupon(code,n,false);
+                                        }
+                                    }
+                                    else{
+                                        voucher.error_message(false,'not a valid coupon code');
+                                        basket.remove_voucher();
+                                    }
+                                })
+                            }
+                        }
+                        apply.onclick = function (){
+                            attempt_code(voucher.value);
+                        }
+                        voucher.onkeypress = function (e){
+                            if (e.key === 'Enter' || e.keyCode === 13) {
+                                attempt_code(voucher.value);
+                            }
+                        }
+                    </script>
+                </div>
+                <a class="test_purchase" id="confirm">purchase</a>
+            </div>
+        </section>
+    </section>
+</div>
+</body>
+</html>

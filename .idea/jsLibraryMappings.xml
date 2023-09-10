@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptLibraryMappings">
+    <file url="file://$PROJECT_DIR$/choose.html" libraries="{jquery}" />
+    <file url="file://$PROJECT_DIR$/javascript/account_1.4.js" libraries="{firebase}" />
+    <file url="file://$PROJECT_DIR$/javascript/checkout_1.5.js" libraries="{firebase}" />
+    <file url="file://$PROJECT_DIR$/javascript/firebase_1.2.js" libraries="{firebase}" />
+    <file url="file://$PROJECT_DIR$/javascript/header_1.14.js" libraries="{firebase}" />
+    <file url="file://$PROJECT_DIR$/javascript/index_1.19.js" libraries="{firebase, jquery}" />
+    <file url="file://$PROJECT_DIR$/javascript/index_botm_1.0.js" libraries="{jquery}" />
+    <file url="file://$PROJECT_DIR$/javascript/register_1.1.js" libraries="{firebase}" />
+    <file url="file://$PROJECT_DIR$/../../resupply the taste/functions/src/index.ts" libraries="{database, firebase}" />
+    <file url="PROJECT" libraries="{firebase-auth, firebase-database}" />
+  </component>
+</project>

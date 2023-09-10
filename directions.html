@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" sizes="16x16" href="media/logo.png">
+    <title>supply the directions</title>
+    <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase.js"></script>
+    <script src="javascript/firebase_1.2.js"></script>
+    <script src="javascript/header_1.14.js"></script>
+    <link rel="stylesheet" href="css/header_1.0.css">
+    <style>
+        table.info{
+            position: absolute; width: 100%; padding: 50px;
+            font-weight: 900; font-family: sans-serif;
+            font-size: 1.6em;
+        }
+        td.info{
+            width: 50%; padding: 10%;
+            color: #004579;
+            text-shadow: 1px 2px #ffffff;
+        }
+        div.main{
+            background-image: linear-gradient(20deg, #d0ffe0, #7dccff);
+        }
+        img.info{
+            border-radius: 10px;
+            width: 90%;
+        }
+    </style>
+</head>
+<body id="body" onload="initHeader()" style="opacity: 0;">
+<div id="header" class="header"> <a class="logo" id="logo" href="/index.html">supply the taste</a></div>
+<div id="main" class="main">
+    <table class="info" id="directions">
+        <tr>
+            <td class="info" id="d_1">
+                Log in to your account and choose which meals you'd like in your supply the taste box<br><br>
+                we have an ever growing range so there's always fresh and exciting dishes to choose from.
+            </td>
+            <td class="info" id="d_2">
+                <img class="info" src="media/directions_1.png">
+            </td>
+        </tr>
+        <tr>
+            <td class="info" id="d_3">
+                <img class="info" id="d_4" src="media/directions_2.png">
+            </td>
+            <td class="info" style="text-align: right">
+                We then work our magic on our end and make sure that with every order we <span style="font-weight: bold">
+                supply the highest quality</span> for you.
+            </td>
+        </tr>
+        <tr>
+            <td class="info" id="d_5">
+                Once you receive your delivery, open you box and get going using our foolproof step by step instructions
+                that even the most untrained house husband could follow!
+            </td>
+            <td class="info" id="d_6">
+                <img class="info" src="media/directions_3.png" alt="satisfied customer aka you">
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+<script>
+    if (isMobile()){
+        document.getElementById('directions').style.fontSize = '1em';
+        document.getElementById('directions').style.padding = '0';
+        for (let i = 1; i < 6; i++){
+            document.getElementById('d_'+i).style.padding = '0';
+        }
+    }
+</script>
+</html>

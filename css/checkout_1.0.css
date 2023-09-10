@@ -1,0 +1,97 @@
+div.checkout_box{
+    margin: 5%;
+    width: calc(90% - 20px);
+    background-color: white;
+    border-radius: 6px;
+    min-height: 100px;
+    box-shadow: 0 10px 10px 10px rgba(202, 202, 202, 0.2);
+    color: #039be5;
+    padding: 20px 0 20px 20px;
+    overflow: hidden;
+}
+
+table.details{
+    margin: 3%;
+    color: black;
+    width: 91%;
+}
+
+tr.details{
+    height: 60px;
+}
+
+th.details{
+    text-align: left;
+}
+
+td.details{
+    font-size: 16px;
+    font-weight: 400;
+}
+
+input{
+    width: calc(100% - 40px);
+    border: unset;
+    box-shadow: 0 4px 5px 5px rgba(136, 136, 136, 0.2);
+    padding: 10px 20px;
+    font-size: 16px;
+    height: 18px;
+    border-radius: 4px;
+    -webkit-appearance: none;
+    font-weight: 400;
+}
+
+div.pick_date{
+    width: calc(100% - 40px);
+    border: unset;
+    box-shadow: 0 4px 5px 5px rgba(136, 136, 136, 0.2);
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: 400;
+    min-height: 18px;
+    font-size: 16px;
+
+    cursor: pointer;
+    z-index: 1;
+}
+
+textarea{
+    width: calc(100% - 40px);
+    border: unset;
+    box-shadow: 0 4px 5px 5px rgba(136, 136, 136, 0.2);
+    padding: 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    font-weight: 400;
+    resize: none;
+    height: 100px;
+    -webkit-appearance: none;
+}
+
+img.dropdown{
+    position: initial;
+    float: right;
+    height: 38px;
+    width: 38px;
+    margin: unset;
+    display: initial;
+    right: 0;
+    top: 0;
+    opacity: 0.5;
+    /*transform: scale(0.7,0.7) translateY(52px);*/
+    transform: scale(0.7,0.7);
+    border-collapse: unset;
+    z-index: 0;
+    cursor: pointer;
+}
+
+div.dropdown_menu{
+    background-color: white;
+    position: fixed;
+    z-index: 200;
+    box-shadow: 0 4px 5px 5px rgba(136, 136, 136, 0.2);
+    border-radius: 4px;
+    cursor: pointer;
+    overflow-y: scroll;
+    display: none;
+}

@@ -1,0 +1,338 @@
+div.sidebar{
+    position: absolute;
+    width: 300px;
+    height: 100%;
+    left: 0;
+    top: 0;
+    color: white;
+    overflow-y: scroll;
+}
+
+div.main{
+    font-family: 'Roboto', sans-serif;
+}
+
+div.result{
+    position: absolute;
+    width: calc(100% - 300px);
+    height: 100%;
+    left: 300px;
+    top: 0;
+    background-color: rgba(255,255,255,0.9);
+    border-radius: 20px 0 0 20px;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+img.toggle{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    margin: 30px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 15px;
+    z-index: 500;
+}
+
+img.toggle:Hover{
+    background-color: rgba(255,255,255,0.8);
+}
+
+div.background{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(150deg, #007cff,#af002d 41.07%,#319197 76.05%);
+    opacity: 0.7;
+    filter: blur(50%);
+}
+
+div.welcome{
+    position: relative;
+    height: 80px;
+    margin: 30px;
+    width: calc(100% - 60px);
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.6em;
+}
+
+div.sidebar_button{
+    float: left;
+    padding: 10px 10px 10px 30px;
+    margin: 10px 60px 10px 0;
+    width: calc(100% - 100px);
+    /*background-color: rgba(255,255,255,0.8);*/
+    border-radius: 0 8px 8px 0;
+    height: 25px;
+    font-size: 20px;
+    /*color: black;*/
+    font-weight: 500;
+    cursor: pointer;
+}
+
+div.sign_out_background{
+    font-family: 'Roboto', sans-serif;
+    position: absolute;
+    background-color: white;
+    border-radius: 8px;
+    width: 340px;
+    height: 100px;
+    left: calc(50% - 200px);
+    top: calc(50% - 125px);
+    padding: 30px;
+    color: #4a4a4a;
+    font-size: 1.2em;
+    z-index: 1000;
+}
+
+div.sign_out_button{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 30px;
+    padding: 10px 20px;
+    background-color: #ff3c3c;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+div.sign_out_button:Hover{
+    background-color: #ff6b6b;
+}
+
+div.sign_out_cancel{
+    font-size: 0.9em;
+    position: absolute;
+    bottom: 0;
+    margin: 30px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: gray;
+    cursor: pointer;
+}
+
+div.sign_out_cancel:Hover{
+    color: #ff7f0f;
+}
+
+div.result_item{
+    position: relative;
+    float: left;
+    margin: 10px;
+    width: 100%;
+    min-height: 100px;
+    padding: 10px;
+    overflow-x: scroll;
+}
+
+table.order_table{
+    margin-top: 20px;
+    position: relative;
+    width: calc(100% - 40px);
+    min-height: 100px;
+    text-align: left;
+    background-color: white;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 1.8vh;
+}
+
+div.result_contents{
+    margin-top: 20px;
+    position: relative;
+    width: calc(100% - 80px);
+    min-height: 100px;
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    font-size: 1.8vh;
+}
+
+span.link{
+    color: #039be5;
+    cursor: pointer;
+}
+
+span.link:Hover{
+    color: #ff7f0f;
+}
+
+div.see_more{
+    background-color: #039be5;
+    border-radius: 6px;
+    padding: 10px 20px;
+    color: white;
+    max-width: 80px;
+    text-align: center;
+    cursor: pointer;
+}
+
+div.see_more:Hover{
+    background-color: #027eba;
+}
+
+div.recipe{
+    position: relative;
+    float: left;
+    padding: 15px 30px;
+    border: solid 3px #469fca;
+    border-radius: 6px;
+    color: black;
+    cursor: pointer;
+    margin: 15px;
+    background-color: white;
+    box-shadow: 0 5px 5px 5px rgba(0,0,0,0.05);
+}
+
+div.recipe:Hover{
+    color: #039be5;
+}
+
+img.recipe{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    transform: scale(0.5,0.5);
+}
+
+div.address{
+    position: relative;
+    height: 160px;
+    width: calc(100% - 50px);
+    padding: 20px;
+    border: solid 3px #dedede;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+div.address:Hover{
+    border-color: #039be5;
+    box-shadow: 0 5px 5px 5px rgba(0,0,0,0.1);
+}
+
+span.help{
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    background-color: #888888;
+}
+
+table.settings_table{
+    width: 100%;
+}
+
+td.settings_table{
+    width: 50%;
+}
+
+input.settings_table{
+    width: 30px;
+    height: 30px;
+}
+
+span.help:Hover{
+    color: #039be5;
+}
+
+div.address_change{
+    background-color: white;
+    width: 470px;
+    height: 570px;
+    left: calc(50% - 250px);
+    top: calc(50% - 350px);
+    border-radius: 8px;
+    position: absolute;
+    padding-top: 30px;
+    padding-left: 30px;
+}
+
+div.address_change_mobile{
+    background-color: white;
+    width: calc(100% - 70px);
+    height: calc(100% - 70px);
+    left: 20px;
+    top: 20px;
+    border-radius: 8px;
+    position: absolute;
+    padding-top: 30px;
+    padding-left: 30px;
+}
+
+div.confirm{
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+    height: 20px;
+    margin: 15px 25px 15px 5px;
+    cursor: pointer;
+    background-color: #037ce5;
+    color: white;
+    border-radius: 4px;
+    padding: 10px 20px;
+}
+
+div.confirm:Hover{
+    background-color: #039be5;
+}
+
+div.cancel{
+    position: absolute;
+    bottom: 10px;
+    height: 20px;
+    margin: 15px 40px 15px 5px;
+    cursor: pointer;
+    color: gray;
+    border-radius: 4px;
+    padding: 10px 20px;
+}
+
+div.cancel:Hover{
+    color: darkorange;
+}
+
+input.address{
+    position: relative;
+    width: calc(100% - 40px);
+    height: 30px;
+    margin: 10px;
+    padding-left: 10px;
+    transform: translateX(-15px);
+    top: 30px;
+    border: solid 1px #dedede;
+    border-radius: 4px;
+    font-size: 18px;
+    font-family: sans-serif;
+}
+
+div.scroll{
+    position: absolute;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    left: 0;
+    top: 0;
+    width: calc(100% - 40px);
+    height: calc(100% - 120px);
+    font-size: 14px;
+    padding: 20px;
+}
+
+div.scroll_element{
+    font-size: 20px;
+}
+
+.scroll_element{
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
